@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.image.*?>
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane id="AnchorPane" prefHeight="200" prefWidth="320" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="imageretrieval.ImageRetrievalController">
+    <children>
+        <Button fx:id="button" layoutX="14.0" layoutY="14.0" onAction="#handleButtonAction" text="Click Me!" />
+        <Label fx:id="label" layoutX="14.0" layoutY="48.0" minHeight="16" minWidth="69" text="Hellow Dude" />
+      <ImageView fx:id="imageSource" fitHeight="150.0" fitWidth="200.0" layoutX="100.0" layoutY="14.0" pickOnBounds="true" preserveRatio="true" />
+      <Button fx:id="buttonProcess" layoutX="14.0" layoutY="77.0" mnemonicParsing="false" onAction="#processImage" text="Proses" />
+      <Button fx:id="buttonSave" layoutX="14.0" layoutY="111.0" mnemonicParsing="false" onAction="#saveImage" text="Save" />
+    </children>
+</AnchorPane>
