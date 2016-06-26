@@ -14,5 +14,6 @@
       <ImageView fx:id="imageSource" fitHeight="150.0" fitWidth="200.0" layoutX="100.0" layoutY="14.0" pickOnBounds="true" preserveRatio="true" />
       <Button fx:id="buttonProcess" layoutX="14.0" layoutY="77.0" mnemonicParsing="false" onAction="#processImage" text="Proses" />
       <Button fx:id="buttonSave" layoutX="14.0" layoutY="111.0" mnemonicParsing="false" onAction="#saveImage" text="Save" />
+      <Button fx:id="buttonSearch" layoutX="14.0" layoutY="146.0" mnemonicParsing="false" onAction="#searchImage" text="Search" />
     </children>
 </AnchorPane>
