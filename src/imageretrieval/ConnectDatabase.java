@@ -53,6 +53,7 @@ public class ConnectDatabase {
     public void closed() {
         try {
             connection.close();
+            System.out.println("CONNECTION CLOSED!");
         } catch (SQLException ex) {
             // handle any errors
             System.out.println("SQLException: " + ex.getMessage());
@@ -150,6 +151,59 @@ public class ConnectDatabase {
                     tempList.put(level.get(i-2), rs.getDouble(i));
                 }
                 warna.setColorBinR(tempList);
+                warna.setUrl(rs.getString(19));
+                list.add(warna);
+            }
+            return list;
+        } catch (Exception e) {
+            e.printStackTrace();
+            return null;
+        } finally {
+            closed();
+        }
+    }
+    
+    public ObservableList<Warna> listColorBinG(ArrayList<Integer> level) {
+        try {
+            connected();
+            ObservableList<Warna> list = FXCollections.observableArrayList();
+            String sql = "Select * from color_bin_g";
+            ResultSet rs = connection.prepareStatement(sql).executeQuery(sql);
+            while (rs.next()) {
+                Warna warna = new Warna();
+                HashMap<Integer, Double> tempList = new HashMap<>();
+                warna.setId(rs.getInt(1));
+                for (int i = 2; i <= 18; i++) {
+                    tempList.put(level.get(i-2), rs.getDouble(i));
+                }
+                warna.setColorBinG(tempList);
+                warna.setUrl(rs.getString(19));
+                list.add(warna);
+            }
+            return list;
+        } catch (Exception e) {
+            e.printStackTrace();
+            return null;
+        } finally {
+            closed();
+        }
+    }
+    
+    public ObservableList<Warna> listColorBinB(ArrayList<Integer> level) {
+        try {
+            connected();
+            ObservableList<Warna> list = FXCollections.observableArrayList();
+            String sql = "Select * from color_bin_b";
+            ResultSet rs = connection.prepareStatement(sql).executeQuery(sql);
+            while (rs.next()) {
+                Warna warna = new Warna();
+                HashMap<Integer, Double> tempList = new HashMap<>();
+                warna.setId(rs.getInt(1));
+                for (int i = 2; i <= 18; i++) {
+                    tempList.put(level.get(i-2), rs.getDouble(i));
+                }
+                warna.setColorBinB(tempList);
+                warna.setUrl(rs.getString(19));
                 list.add(warna);
             }
             return list;

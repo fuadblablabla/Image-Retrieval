@@ -15,6 +15,7 @@ import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Comparator;
 import java.util.HashMap;
 import java.util.ResourceBundle;
 import java.util.Vector;
@@ -223,6 +224,56 @@ public class ImageRetrievalController implements Initializable {
         ObservableList<Warna> listColorBinR = FXCollections.observableArrayList();
         listColorBinR = connectDatabase.listColorBinR(level);
         System.out.println("list color bin r: " + listColorBinR.get(0).getColorBinR());
+        
+        ObservableList<Warna> listColorBinG = FXCollections.observableArrayList();
+        listColorBinG = connectDatabase.listColorBinG(level);
+        System.out.println("list color bin g: " + listColorBinG.get(0).getColorBinG());
+        
+        ObservableList<Warna> listColorBinB = FXCollections.observableArrayList();
+        listColorBinB = connectDatabase.listColorBinB(level);
+        System.out.println("list color bin b: " + listColorBinB.get(0).getColorBinB());
+        
+        int sizeData = listColorBinB.size();
+        
+        ArrayList<Warna> warnaList = new ArrayList<>();        
+        
+        ArrayList<Double> EDR = new ArrayList<>();
+        ArrayList<Double> EDG = new ArrayList<>();
+        ArrayList<Double> EDB = new ArrayList<>();
+        for (int i = 0; i < sizeData; i++) {
+            Warna tempWarna = new Warna(listColorBinR.get(i).getColorBinR()
+                        , listColorBinG.get(i).getColorBinG()
+                        , listColorBinB.get(i).getColorBinB()
+                        , listColorBinR.get(i).getUrl());
+            warnaList.add(tempWarna);
+            /*System.out.println("list color bin R: " + listColorBinR.get(i).getColorBinR());
+            System.out.println("list color bin url: " + listColorBinR.get(i).getUrl());
+            System.out.println("for");*/
+        }
+        System.out.println("warnalist awal: " + warnaList.get(0).getUrl());
+        //for (int i = 0; i < 3; i++) {
+            for (int j = 0; j < sizeData; j++) {
+                double[] T = new double[level.size()];                
+                for (int k = 0; k < level.size(); k++) {
+                    T[k] = warnaList.get(j).getColorBinR().get(level.get(k)) - colorBinR.get(level.get(k));
+                }
+                double D = 0;
+                for (int k = 0; k < level.size(); k++) {
+                    D = D + (T[k]*T[k]);
+                }
+                warnaList.get(j).setDistanceR(Math.sqrt(D));
+            }
+        //}
+        Collections.sort(warnaList, new Comparator<Warna>(){
+            @Override
+            public int compare(Warna o1, Warna o2) {
+                return o1.getDistanceR().compareTo(o2.getDistanceR());
+            }
+            
+        });
+        for (int i = 0; i < warnaList.size(); i++) {
+            System.out.println("warna sort: " + warnaList.get(i).getUrl());
+        }        
     }
 
 }
