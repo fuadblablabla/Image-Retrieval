@@ -7,13 +7,18 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<AnchorPane id="AnchorPane" prefHeight="200" prefWidth="320" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="imageretrieval.ImageRetrievalController">
+<AnchorPane id="AnchorPane" prefHeight="479.0" prefWidth="528.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="imageretrieval.ImageRetrievalController">
     <children>
-        <Button fx:id="button" layoutX="14.0" layoutY="14.0" onAction="#handleButtonAction" text="Click Me!" />
-        <Label fx:id="label" layoutX="14.0" layoutY="48.0" minHeight="16" minWidth="69" text="Hellow Dude" />
-      <ImageView fx:id="imageSource" fitHeight="150.0" fitWidth="200.0" layoutX="100.0" layoutY="14.0" pickOnBounds="true" preserveRatio="true" />
-      <Button fx:id="buttonProcess" layoutX="14.0" layoutY="77.0" mnemonicParsing="false" onAction="#processImage" text="Proses" />
-      <Button fx:id="buttonSave" layoutX="14.0" layoutY="111.0" mnemonicParsing="false" onAction="#saveImage" text="Save" />
-      <Button fx:id="buttonSearch" layoutX="14.0" layoutY="146.0" mnemonicParsing="false" onAction="#searchImage" text="Search" />
+        <Button fx:id="button" layoutX="14.0" layoutY="14.0" onAction="#handleButtonAction" text="Choose Image" />
+        <Label fx:id="label" layoutX="14.0" layoutY="45.0" minHeight="16" minWidth="69" text="Hellow Dude, Choose Image First Yeah?" />
+      <ImageView fx:id="imageSource" fitHeight="150.0" fitWidth="200.0" layoutX="19.0" layoutY="70.0" pickOnBounds="true" preserveRatio="true" />
+      <Button fx:id="buttonProcess" layoutX="123.0" layoutY="14.0" mnemonicParsing="false" onAction="#processImage" text="Proses" />
+      <Button fx:id="buttonSave" layoutX="191.0" layoutY="14.0" mnemonicParsing="false" onAction="#saveImage" text="Save" />
+      <Button fx:id="buttonSearch" layoutX="251.0" layoutY="14.0" mnemonicParsing="false" onAction="#searchImage" text="Search" />
+      <TableView fx:id="tableImage" layoutX="230.0" layoutY="70.0" prefHeight="200.0" prefWidth="266.0">
+        <columns>
+          <TableColumn fx:id="columnUrl" prefWidth="265.0" text="URL" />
+        </columns>
+      </TableView>
     </children>
 </AnchorPane>

@@ -25,6 +25,7 @@ public class ImageRetrieval extends Application {
         Scene scene = new Scene(root);                
         
         stage.setScene(scene);
+        stage.setTitle("Color Histogram Based Image Retrieval");
         stage.show();
     }
 

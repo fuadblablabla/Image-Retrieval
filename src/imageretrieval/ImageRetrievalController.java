@@ -31,13 +31,21 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.control.ListView;
+import javafx.scene.control.TableCell;
+import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableView;
+import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.image.PixelReader;
 import javafx.scene.image.PixelWriter;
 import javafx.scene.image.WritableImage;
+import javafx.scene.layout.HBox;
+import javafx.scene.layout.VBox;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
+import javafx.util.Callback;
 
 /**
  *
@@ -50,7 +58,7 @@ public class ImageRetrievalController implements Initializable {
 
     private Parent root;
     private Image img;
-    private File file;    
+    private File file;
     private ConnectDatabase connectDatabase;
 
     private HashMap<Integer, Double> colorBinR;
@@ -69,15 +77,18 @@ public class ImageRetrievalController implements Initializable {
     private Button buttonSave;
     @FXML
     private Button buttonSearch;
+    @FXML
+    private TableColumn columnUrl;
+    @FXML
+    private TableView<Warna> tableImage;
 
     @FXML
     private void handleButtonAction(ActionEvent event) throws IOException {
         System.out.println("You clicked me!");
-        label.setText("Hello World!");
+        label.setText("Now, Press Proses Button!");
 
-        root = FXMLLoader.load(getClass().getResource("ImageRetrievalFXML.fxml"));
-
-        Stage stage = new Stage();
+        //root = FXMLLoader.load(getClass().getResource("ImageRetrievalFXML.fxml"));
+        Stage stage = (Stage) button.getScene().getWindow();
 
         FileChooser chooser = new FileChooser();
         chooser.setTitle("Open File");
@@ -86,8 +97,8 @@ public class ImageRetrievalController implements Initializable {
         img = new Image(file.toURI().toURL().toString());
         imageSource.setImage(img);
 
-        Scene scene = new Scene(root);
-        stage.setScene(scene);
+        //Scene scene = new Scene(root);
+        //stage.setScene(scene);
     }
 
     @Override
@@ -111,6 +122,36 @@ public class ImageRetrievalController implements Initializable {
         level.add(224);
         level.add(240);
         level.add(256);
+        //columnUrl.setCellValueFactory(new PropertyValueFactory<Warna, String>("url"));                
+        columnUrl.setCellValueFactory(new PropertyValueFactory<Warna, String>("url"));                
+        columnUrl.setCellFactory(new Callback<TableColumn<Warna, String>, TableCell<Warna, String>>() {
+            @Override
+            public TableCell<Warna, String> call(TableColumn<Warna, String> p) {
+                TableCell<Warna, String> cell = new TableCell<Warna, String>() {
+                    ImageView imageview = new ImageView();
+                    @Override
+                    protected void updateItem(String t, boolean bln) {
+                        if (t != null) {
+                            HBox box = new HBox();
+                            box.setSpacing(10);
+                            VBox vbox = new VBox();
+                                                        
+                            imageview.setFitHeight(50);
+                            imageview.setFitWidth(50);
+                            imageview.setImage(new Image(t));
+                            box.getChildren().addAll(imageview);
+                            //SETTING ALL THE GRAPHICS COMPONENT FOR CELL
+                            setGraphic(box);
+                        }                        
+                    }
+
+                };
+                System.out.println(cell.getIndex());              
+                return cell;
+            }
+
+        });
+        tableImage.setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY);
     }
 
     private void emptyMetaData() {
@@ -140,6 +181,7 @@ public class ImageRetrievalController implements Initializable {
 
     @FXML
     private void processImage(ActionEvent event) throws IOException {
+        label.setText("Now you can either save or search from image that you choose, :*");
         emptyMetaData();
         PixelReader reader = img.getPixelReader();
         int width = (int) img.getWidth();
@@ -186,20 +228,20 @@ public class ImageRetrievalController implements Initializable {
             }
         }
         imageSource.setImage(dest);
-        
+
         System.out.println("jumlah pixel: " + jumlahPixel);
 
         for (int i = 0; i < 3; i++) {
             for (int j = 0; j < level.size(); j++) {
                 switch (i) {
                     case 0:
-                        colorBinR.put(level.get(j), colorBinR.get(level.get(j))/jumlahPixel);
+                        colorBinR.put(level.get(j), colorBinR.get(level.get(j)) / jumlahPixel);
                         break;
                     case 1:
-                        colorBinG.put(level.get(j), colorBinG.get(level.get(j))/jumlahPixel);
+                        colorBinG.put(level.get(j), colorBinG.get(level.get(j)) / jumlahPixel);
                         break;
                     case 2:
-                        colorBinB.put(level.get(j), colorBinB.get(level.get(j))/jumlahPixel);
+                        colorBinB.put(level.get(j), colorBinB.get(level.get(j)) / jumlahPixel);
                         break;
                     default:
                         break;
@@ -209,12 +251,12 @@ public class ImageRetrievalController implements Initializable {
 
         System.out.println("color bin red: " + colorBinR);
         System.out.println("color bin green: " + colorBinG);
-        System.out.println("color bin blue: " + colorBinB);        
+        System.out.println("color bin blue: " + colorBinB);
     }
 
     @FXML
     private void saveImage(ActionEvent event) throws MalformedURLException {
-        Warna warna = new Warna(colorBinR, colorBinG, colorBinB, 
+        Warna warna = new Warna(colorBinR, colorBinG, colorBinB,
                 file.toURI().toURL().toString());
         connectDatabase.insert(warna, level);
     }
@@ -224,27 +266,21 @@ public class ImageRetrievalController implements Initializable {
         ObservableList<Warna> listColorBinR = FXCollections.observableArrayList();
         listColorBinR = connectDatabase.listColorBinR(level);
         System.out.println("list color bin r: " + listColorBinR.get(0).getColorBinR());
-        
+
         ObservableList<Warna> listColorBinG = FXCollections.observableArrayList();
         listColorBinG = connectDatabase.listColorBinG(level);
         System.out.println("list color bin g: " + listColorBinG.get(0).getColorBinG());
-        
+
         ObservableList<Warna> listColorBinB = FXCollections.observableArrayList();
         listColorBinB = connectDatabase.listColorBinB(level);
         System.out.println("list color bin b: " + listColorBinB.get(0).getColorBinB());
-        
+
         int sizeData = listColorBinB.size();
-        
-        ArrayList<Warna> warnaList = new ArrayList<>();        
-        
-        ArrayList<Double> EDR = new ArrayList<>();
-        ArrayList<Double> EDG = new ArrayList<>();
-        ArrayList<Double> EDB = new ArrayList<>();
+
+        ArrayList<Warna> warnaList = new ArrayList<>();
+
         for (int i = 0; i < sizeData; i++) {
-            Warna tempWarna = new Warna(listColorBinR.get(i).getColorBinR()
-                        , listColorBinG.get(i).getColorBinG()
-                        , listColorBinB.get(i).getColorBinB()
-                        , listColorBinR.get(i).getUrl());
+            Warna tempWarna = new Warna(listColorBinR.get(i).getColorBinR(), listColorBinG.get(i).getColorBinG(), listColorBinB.get(i).getColorBinB(), listColorBinR.get(i).getUrl());
             warnaList.add(tempWarna);
             /*System.out.println("list color bin R: " + listColorBinR.get(i).getColorBinR());
             System.out.println("list color bin url: " + listColorBinR.get(i).getUrl());
@@ -252,28 +288,38 @@ public class ImageRetrievalController implements Initializable {
         }
         System.out.println("warnalist awal: " + warnaList.get(0).getUrl());
         //for (int i = 0; i < 3; i++) {
-            for (int j = 0; j < sizeData; j++) {
-                double[] T = new double[level.size()];                
-                for (int k = 0; k < level.size(); k++) {
-                    T[k] = warnaList.get(j).getColorBinR().get(level.get(k)) - colorBinR.get(level.get(k));
-                }
-                double D = 0;
-                for (int k = 0; k < level.size(); k++) {
-                    D = D + (T[k]*T[k]);
-                }
-                warnaList.get(j).setDistanceR(Math.sqrt(D));
+        for (int j = 0; j < sizeData; j++) {
+            double[] T = new double[level.size()];
+            for (int k = 0; k < level.size(); k++) {
+                T[k] = warnaList.get(j).getColorBinR().get(level.get(k)) - colorBinR.get(level.get(k));
             }
+            double D = 0;
+            for (int k = 0; k < level.size(); k++) {
+                D = D + (T[k] * T[k]);
+            }
+            warnaList.get(j).setDistanceR(Math.sqrt(D));
+        }
         //}
-        Collections.sort(warnaList, new Comparator<Warna>(){
+        Collections.sort(warnaList, new Comparator<Warna>() {
             @Override
             public int compare(Warna o1, Warna o2) {
                 return o1.getDistanceR().compareTo(o2.getDistanceR());
             }
-            
+
         });
         for (int i = 0; i < warnaList.size(); i++) {
             System.out.println("warna sort: " + warnaList.get(i).getUrl());
-        }        
+        }
+
+        ObservableList<Warna> listOnTable = FXCollections.observableArrayList();
+        for (int i = 0; i < warnaList.size(); i++) {
+            /*Warna x = new Warna();
+            x.setImageView(new Image(warnaList.get(i).getUrl()));
+            listOnTable.add(x);
+            System.out.println("x: " + x.image.toString());*/
+            listOnTable.add(warnaList.get(i));
+        }
+        tableImage.setItems(listOnTable);
     }
 
 }

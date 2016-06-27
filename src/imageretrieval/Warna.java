@@ -6,6 +6,8 @@
 package imageretrieval;
 
 import java.util.HashMap;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 
 /**
  *
@@ -18,6 +20,9 @@ public class Warna implements Comparable<Warna>{
     private HashMap<Integer, Double> colorBinG;
     private HashMap<Integer, Double> colorBinB;
     private Double distanceR, distanceG, distanceB;
+    
+    public Image image;
+    public Warna warna = Warna.this;
 
     public Warna(HashMap<Integer, Double> colorBinR, HashMap<Integer, Double> colorBinG, HashMap<Integer, Double> colorBinB, String url) {
         this.colorBinR = colorBinR;
@@ -28,6 +33,10 @@ public class Warna implements Comparable<Warna>{
     
     public Warna(){
         
+    }
+
+    public void setImageView(Image image) {
+        this.image = image;
     }
 
     public Double getDistanceR() {
