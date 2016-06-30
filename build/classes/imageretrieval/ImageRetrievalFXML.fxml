@@ -1,5 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.shape.*?>
+<?import javafx.scene.chart.*?>
 <?import javafx.scene.image.*?>
 <?import java.lang.*?>
 <?import java.util.*?>
@@ -7,18 +9,119 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<AnchorPane id="AnchorPane" prefHeight="479.0" prefWidth="528.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="imageretrieval.ImageRetrievalController">
+<AnchorPane id="AnchorPane" prefHeight="700.0" prefWidth="1350.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="imageretrieval.ImageRetrievalController">
     <children>
         <Button fx:id="button" layoutX="14.0" layoutY="14.0" onAction="#handleButtonAction" text="Choose Image" />
         <Label fx:id="label" layoutX="14.0" layoutY="45.0" minHeight="16" minWidth="69" text="Hellow Dude, Choose Image First Yeah?" />
-      <ImageView fx:id="imageSource" fitHeight="150.0" fitWidth="200.0" layoutX="19.0" layoutY="70.0" pickOnBounds="true" preserveRatio="true" />
+      <ImageView fx:id="imageSource" fitHeight="250.0" fitWidth="250.0" layoutX="19.0" layoutY="70.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../../../../../image_data_mining/your.png" />
+         </image></ImageView>
       <Button fx:id="buttonProcess" layoutX="123.0" layoutY="14.0" mnemonicParsing="false" onAction="#processImage" text="Proses" />
       <Button fx:id="buttonSave" layoutX="191.0" layoutY="14.0" mnemonicParsing="false" onAction="#saveImage" text="Save" />
       <Button fx:id="buttonSearch" layoutX="251.0" layoutY="14.0" mnemonicParsing="false" onAction="#searchImage" text="Search" />
-      <TableView fx:id="tableImage" layoutX="230.0" layoutY="70.0" prefHeight="200.0" prefWidth="266.0">
+      <TableView fx:id="tableImage" layoutX="19.0" layoutY="330.0" prefHeight="346.0" prefWidth="250.0">
         <columns>
-          <TableColumn fx:id="columnUrl" prefWidth="265.0" text="URL" />
+          <TableColumn fx:id="columnUrl" prefWidth="250.0" text="Search Result" />
         </columns>
       </TableView>
+      <BarChart fx:id="barG" layoutX="303.0" layoutY="54.0" prefWidth="1000.0">
+        <xAxis>
+          <CategoryAxis side="BOTTOM" fx:id="xAxisG" />
+        </xAxis>
+        <yAxis>
+          <NumberAxis fx:id="yAxisG" side="LEFT" />
+        </yAxis>
+      </BarChart>
+      <ImageView fx:id="imgView1" fitHeight="100.0" fitWidth="100.0" layoutX="303.0" layoutY="466.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../../../../../image_data_mining/your.png" />
+         </image>
+      </ImageView>
+      <ImageView fx:id="imgView11" fitHeight="100.0" fitWidth="100.0" layoutX="414.0" layoutY="466.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../../../../../image_data_mining/your.png" />
+         </image>
+      </ImageView>
+      <ImageView fx:id="imgView111" fitHeight="100.0" fitWidth="100.0" layoutX="522.0" layoutY="466.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../../../../../image_data_mining/your.png" />
+         </image>
+      </ImageView>
+      <ImageView fx:id="imgView112" fitHeight="100.0" fitWidth="100.0" layoutX="631.0" layoutY="466.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../../../../../image_data_mining/your.png" />
+         </image>
+      </ImageView>
+      <ImageView fx:id="imgView113" fitHeight="100.0" fitWidth="100.0" layoutX="742.0" layoutY="466.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../../../../../image_data_mining/your.png" />
+         </image>
+      </ImageView>
+      <ImageView fx:id="imgView114" fitHeight="100.0" fitWidth="100.0" layoutX="851.0" layoutY="466.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../../../../../image_data_mining/your.png" />
+         </image>
+      </ImageView>
+      <ImageView fx:id="imgView115" fitHeight="100.0" fitWidth="100.0" layoutX="959.0" layoutY="466.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../../../../../image_data_mining/your.png" />
+         </image>
+      </ImageView>
+      <ImageView fx:id="imgView116" fitHeight="100.0" fitWidth="100.0" layoutX="1068.0" layoutY="466.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../../../../../image_data_mining/your.png" />
+         </image>
+      </ImageView>
+      <ImageView fx:id="imgView117" fitHeight="100.0" fitWidth="100.0" layoutX="1176.0" layoutY="466.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../../../../../image_data_mining/your.png" />
+         </image>
+      </ImageView>
+      <ImageView fx:id="imgView1171" fitHeight="100.0" fitWidth="100.0" layoutX="1176.0" layoutY="575.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../../../../../image_data_mining/your.png" />
+         </image>
+      </ImageView>
+      <ImageView fx:id="imgView1172" fitHeight="100.0" fitWidth="100.0" layoutX="1068.0" layoutY="575.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../../../../../image_data_mining/your.png" />
+         </image>
+      </ImageView>
+      <ImageView fx:id="imgView1173" fitHeight="100.0" fitWidth="100.0" layoutX="959.0" layoutY="575.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../../../../../image_data_mining/your.png" />
+         </image>
+      </ImageView>
+      <ImageView fx:id="imgView1174" fitHeight="100.0" fitWidth="100.0" layoutX="851.0" layoutY="575.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../../../../../image_data_mining/your.png" />
+         </image>
+      </ImageView>
+      <ImageView fx:id="imgView1175" fitHeight="100.0" fitWidth="100.0" layoutX="742.0" layoutY="575.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../../../../../image_data_mining/your.png" />
+         </image>
+      </ImageView>
+      <ImageView fx:id="imgView1176" fitHeight="100.0" fitWidth="100.0" layoutX="631.0" layoutY="575.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../../../../../image_data_mining/your.png" />
+         </image>
+      </ImageView>
+      <ImageView fx:id="imgView1177" fitHeight="100.0" fitWidth="100.0" layoutX="522.0" layoutY="575.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../../../../../image_data_mining/your.png" />
+         </image>
+      </ImageView>
+      <ImageView fx:id="imgView1178" fitHeight="100.0" fitWidth="100.0" layoutX="414.0" layoutY="575.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../../../../../image_data_mining/your.png" />
+         </image>
+      </ImageView>
+      <ImageView fx:id="imgView1179" fitHeight="100.0" fitWidth="100.0" layoutX="303.0" layoutY="575.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../../../../../image_data_mining/your.png" />
+         </image>
+      </ImageView>
     </children>
 </AnchorPane>

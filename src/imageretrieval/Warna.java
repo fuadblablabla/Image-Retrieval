@@ -19,10 +19,9 @@ public class Warna implements Comparable<Warna>{
     private HashMap<Integer, Double> colorBinR;
     private HashMap<Integer, Double> colorBinG;
     private HashMap<Integer, Double> colorBinB;
-    private Double distanceR, distanceG, distanceB;
+    private Double distanceR, distanceG, distanceB, avgDistance;
     
-    public Image image;
-    public Warna warna = Warna.this;
+    public Image image;    
 
     public Warna(HashMap<Integer, Double> colorBinR, HashMap<Integer, Double> colorBinG, HashMap<Integer, Double> colorBinB, String url) {
         this.colorBinR = colorBinR;
@@ -33,11 +32,15 @@ public class Warna implements Comparable<Warna>{
     
     public Warna(){
         
+    }    
+
+    public Double getAvgDistance() {
+        return avgDistance;
     }
 
-    public void setImageView(Image image) {
-        this.image = image;
-    }
+    public void setAvgDistance(Double avgDistance) {
+        this.avgDistance = avgDistance;
+    }        
 
     public Double getDistanceR() {
         return distanceR;
@@ -105,7 +108,7 @@ public class Warna implements Comparable<Warna>{
 
     @Override
     public int compareTo(Warna o) {
-        int x = distanceR.compareTo(o.getDistanceR());
+        int x = avgDistance.compareTo(o.avgDistance);
         return x;
     }
     
